@@ -127,4 +127,53 @@
   padding: 8px 14px;
   border-radius: 6px;
 }
+.airasia-section {
+  padding: 60px 20px;
+  text-align: center;
+  background: #fff5f5;
+}
+
+.airasia-section.light {
+  background: #ffffff;
+}
+
+.airasia-section h2 {
+  color: #e60012;
+  margin-bottom: 25px;
+  font-size: 2rem;
+}
+
+.airasia-form {
+  max-width: 500px;
+  margin: auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.airasia-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.airasia-form button {
+  width: 100%;
+  padding: 14px;
+  background: #e60012;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.airasia-form button:hover {
+  background: #c4000f;
+}
+
 
