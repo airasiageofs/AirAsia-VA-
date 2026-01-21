@@ -498,53 +498,47 @@
                 </div>
             </div>
         </section>
+          <!-- PAGE: PILOT APPLICATION -->
+<section id="pilot-application" class="page-section hidden-page pt-32 pb-20 bg-gray-100 min-h-screen">
+  <div class="max-w-xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl font-bold text-aa-red mb-2">Pilot Application</h2>
+      <p class="text-gray-500">Apply to fly with AirAsia GeoFS</p>
+    </div>
+
+    <form id="pilotForm" class="bg-white rounded-2xl p-8 shadow-lg space-y-4">
+      <input type="text" placeholder="Full Name" class="w-full p-3 rounded-lg border" required>
+      <input type="email" placeholder="Email" class="w-full p-3 rounded-lg border" required>
+      <input type="text" placeholder="License / ID" class="w-full p-3 rounded-lg border" required>
+      <input type="number" placeholder="Flight Hours" class="w-full p-3 rounded-lg border" required>
+      <input type="url" placeholder="Logbook / CV Link" class="w-full p-3 rounded-lg border">
+
+      <button type="submit" class="w-full bg-aa-red text-white font-bold py-3 rounded-lg hover:bg-red-700 transition">
+        Apply Now
+      </button>
+
+      <p id="pilotSuccess" class="hidden text-green-600 text-center font-medium mt-4">
+        Application submitted successfully ✔
+      </p>
+    </form>
+  </div>
+</section>
+// Booking form success
+document.getElementById('bookingForm')?.addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('bookingSuccess').classList.remove('hidden');
+  e.target.reset();
+});
+
+// Pilot form success
+document.getElementById('pilotForm')?.addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('pilotSuccess').classList.remove('hidden');
+  e.target.reset();
+});
 
 
-        <!-- PAGE: APPLY -->
-        <section id="apply" class="page-section hidden-page pt-32 pb-20 bg-aa-red text-white min-h-screen">
-            <div class="max-w-3xl mx-auto px-4">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold mb-4">Join the Team</h2>
-                    <p class="opacity-90">Ready to take off? Fill out the application below.</p>
-                </div>
-
-                <form class="bg-white rounded-2xl p-8 shadow-2xl text-gray-800 space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-bold mb-2">Callsign (e.g. AXM123)</label>
-                            <input type="text" placeholder="Desired Callsign" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red focus:ring-1 focus:ring-aa-red transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold mb-2">GeoFS Username</label>
-                            <input type="text" placeholder="Your GeoFS Name" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red focus:ring-1 focus:ring-aa-red transition">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Experience Level</label>
-                        <select class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red transition">
-                            <option>Student Pilot (New to GeoFS)</option>
-                            <option>First Officer (Some Experience)</option>
-                            <option>Captain (Veteran)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Why do you want to join?</label>
-                        <textarea rows="4" placeholder="Tell us a bit about yourself..." class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red focus:ring-1 focus:ring-aa-red transition"></textarea>
-                    </div>
-
-                    <button type="button" class="w-full bg-aa-dark text-white font-bold py-4 rounded-lg hover:bg-black transition transform hover:-translate-y-1 shadow-lg">
-                        Submit Application
-                    </button>
-                    
-                    <p class="text-xs text-center text-gray-400">
-                        By submitting, you agree to our Virtual Airline rules. This is for a flight simulator game, not real employment.
-                    </p>
-                </form>
-            </div>
-        </section>
-    </main>
+        
 
     <!-- Footer (Global) -->
     <footer class="bg-aa-dark text-white py-12 border-t border-gray-800">
@@ -663,47 +657,11 @@
             }
         });
     </script>
-    <!-- PAGE: PILOT APPLICATION -->
-<section id="pilot-application" class="page-section hidden-page pt-32 pb-20 bg-gray-100 min-h-screen">
-  <div class="max-w-xl mx-auto px-4">
-    <div class="text-center mb-10">
-      <h2 class="text-3xl font-bold text-aa-red mb-2">Pilot Application</h2>
-      <p class="text-gray-500">Apply to fly with AirAsia GeoFS</p>
-    </div>
-
-    <form id="pilotForm" class="bg-white rounded-2xl p-8 shadow-lg space-y-4">
-      <input type="text" placeholder="Full Name" class="w-full p-3 rounded-lg border" required>
-      <input type="email" placeholder="Email" class="w-full p-3 rounded-lg border" required>
-      <input type="text" placeholder="License / ID" class="w-full p-3 rounded-lg border" required>
-      <input type="number" placeholder="Flight Hours" class="w-full p-3 rounded-lg border" required>
-      <input type="url" placeholder="Logbook / CV Link" class="w-full p-3 rounded-lg border">
-
-      <button type="submit" class="w-full bg-aa-red text-white font-bold py-3 rounded-lg hover:bg-red-700 transition">
-        Apply Now
-      </button>
-
-      <p id="pilotSuccess" class="hidden text-green-600 text-center font-medium mt-4">
-        Application submitted successfully ✔
-      </p>
-    </form>
-  </div>
-</section>
-// Booking form success
-document.getElementById('bookingForm')?.addEventListener('submit', e => {
-  e.preventDefault();
-  document.getElementById('bookingSuccess').classList.remove('hidden');
-  e.target.reset();
-});
-
-// Pilot form success
-document.getElementById('pilotForm')?.addEventListener('submit', e => {
-  e.preventDefault();
-  document.getElementById('pilotSuccess').classList.remove('hidden');
-  e.target.reset();
-});
+  
 
 </body>
 
 </html>
+
 
 
