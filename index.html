@@ -677,12 +677,104 @@ document.getElementById('pilotForm')?.addEventListener('submit', e => {
                 showPage('home');
             }
         });
+        const PILOT_WEBHOOK =
+"https://discord.com/api/webhooks/1463589828011491481/tR5AC9_3wA9zlKF9Nn9ZP5KqYs4WnbQXQxTgaNt2WHW1MRWP0R_7oweYae7XHnSABDA7";
+
+document.getElementById("pilotForm")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = e.target.querySelector('input[placeholder="Full Name"]').value;
+  const email = e.target.querySelector('input[type="email"]').value;
+  const geofs = e.target.querySelector('input[placeholder="GeoFS Username"]').value;
+  const hours = e.target.querySelector("select").value;
+
+  const payload = {
+    username: "AirAsia VA Applications",
+    avatar_url: "https://i.imgur.com/6X8JZpZ.png",
+    embeds: [
+      {
+        title: "🧑‍✈️ New Pilot Application",
+        color: 15158332,
+        fields: [
+          { name: "👤 Name", value: name, inline: true },
+          { name: "📧 Email", value: email, inline: true },
+          { name: "🛫 GeoFS Username", value: geofs, inline: true },
+          { name: "⏱ Flight Hours", value: hours, inline: true }
+        ],
+        footer: { text: "AirAsia Virtual Airline" },
+        timestamp: new Date().toISOString()
+      }
+    ]
+  };
+
+  try {
+    await fetch(PILOT_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    document.getElementById("pilotSuccess").classList.remove("hidden");
+    e.target.reset();
+  } catch (err) {
+    alert("Failed to submit application. Try again.");
+    console.error(err);
+  }
+});
+const TICKET_WEBHOOK =
+"https://discord.com/api/webhooks/1463590453441200191/p_emHmEQhQ14WoDLOgUyFqGOlWXsO0yuxWzCPDBmNFlaNKID3TOq2Ul4-J0DGmAzD6m0";
+
+document.getElementById("bookingForm")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = new FormData(e.target);
+
+  const payload = {
+    username: "AirAsia VA Tickets",
+    avatar_url: "https://i.imgur.com/6X8JZpZ.png",
+    embeds: [
+      {
+        title: "🎫 New Ticket / Flight Booking",
+        color: 3066993,
+        fields: [
+          { name: "👤 Name", value: data.get("name") || "N/A", inline: true },
+          { name: "📧 Email", value: data.get("email") || "N/A", inline: true },
+          {
+            name: "🛫 Route",
+            value: `${data.get("from") || "?"} → ${data.get("to") || "?"}`,
+            inline: false
+          },
+          { name: "✈️ Aircraft", value: data.get("aircraft") || "N/A", inline: true },
+          { name: "📝 Notes", value: data.get("notes") || "None", inline: false }
+        ],
+        footer: { text: "AirAsia Virtual Airline" },
+        timestamp: new Date().toISOString()
+      }
+    ]
+  };
+
+  try {
+    await fetch(TICKET_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    document.getElementById("bookingSuccess").classList.remove("hidden");
+    e.target.reset();
+  } catch (err) {
+    alert("Ticket submission failed. Try again.");
+    console.error(err);
+  }
+});
+
     </script>
   
 
 </body>
 
 </html>
+
 
 
 
