@@ -106,6 +106,14 @@
                     <a href="#fleet" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">Fleet</a>
                     <a href="#routes" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">Routes</a>
                     <a href="#apply" class="nav-link bg-aa-red text-white px-6 py-2 rounded-full font-bold hover:bg-red-700 transition shadow-lg transform hover:scale-105">
+                        <a href="#flight-booking" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">
+  Book Flight
+</a>
+
+<a href="#pilot-application" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">
+  Pilot Apply
+</a>
+
                         Join Crew
                     </a>
                 </div>
@@ -523,19 +531,6 @@
     </form>
   </div>
 </section>
-// Booking form success
-document.getElementById('bookingForm')?.addEventListener('submit', e => {
-  e.preventDefault();
-  document.getElementById('bookingSuccess').classList.remove('hidden');
-  e.target.reset();
-});
-
-// Pilot form success
-document.getElementById('pilotForm')?.addEventListener('submit', e => {
-  e.preventDefault();
-  document.getElementById('pilotSuccess').classList.remove('hidden');
-  e.target.reset();
-});
 
 
         
@@ -583,6 +578,20 @@ document.getElementById('pilotForm')?.addEventListener('submit', e => {
 
     <!-- JavaScript Router Logic -->
     <script>
+        // Booking form success
+document.getElementById('bookingForm')?.addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('bookingSuccess').classList.remove('hidden');
+  e.target.reset();
+});
+
+// Pilot form success
+document.getElementById('pilotForm')?.addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('pilotSuccess').classList.remove('hidden');
+  e.target.reset();
+});
+
         document.addEventListener('DOMContentLoaded', () => {
             // Select all navigation links (with class 'nav-link')
             // Note: I added class 'nav-link' to standard nav items for cleaner selection,
@@ -662,6 +671,7 @@ document.getElementById('pilotForm')?.addEventListener('submit', e => {
 </body>
 
 </html>
+
 
 
 
