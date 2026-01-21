@@ -472,6 +472,29 @@
                 </div>
             </div>
         </section>
+        <section id="flight-booking" class="airasia-section">
+  <h2>Flight Booking</h2>
+  <form class="airasia-form" action="YOUR_FORM_ENDPOINT" method="POST">
+    <input type="text" name="from" placeholder="From (Airport / City)" required>
+    <input type="text" name="to" placeholder="To (Airport / City)" required>
+    <input type="date" name="date" required>
+    <input type="number" name="pax" placeholder="Passengers" min="1" required>
+    <input type="email" name="email" placeholder="Contact Email" required>
+    <button type="submit">Book Flight</button>
+  </form>
+            <section id="pilot-application" class="airasia-section light">
+  <h2>Pilot Application</h2>
+  <form class="airasia-form" action="YOUR_FORM_ENDPOINT" method="POST">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="text" name="license" placeholder="License Number" required>
+    <input type="number" name="experience" placeholder="Flight Hours / Experience" required>
+    <input type="url" name="cv" placeholder="CV / Logbook Link">
+    <button type="submit">Apply Now</button>
+  </form>
+</section>
+</section>
+
 
         <!-- PAGE: APPLY -->
         <section id="apply" class="page-section hidden-page pt-32 pb-20 bg-aa-red text-white min-h-screen">
@@ -637,4 +660,5 @@
         });
     </script>
 </body>
+
 </html>
