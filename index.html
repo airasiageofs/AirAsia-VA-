@@ -25,21 +25,21 @@ const fleetImages={
 
 <style>
 .hidden-page{display:none}
-.fade-in{animation:fadeIn .5s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.fade-in{animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
 </style>
 </head>
 
 <body class="font-sans bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-<!-- NAV -->
+<!-- NAVBAR -->
 <nav class="bg-white shadow-md fixed w-full z-50">
-<div class="max-w-7xl mx-auto px-4 flex justify-between h-20 items-center">
+<div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-20">
 <a href="#home" class="nav-link flex items-center gap-2">
 <div class="w-10 h-10 bg-aa-red rounded-full flex items-center justify-center text-white">
 <i class="fa-solid fa-plane-up"></i>
 </div>
-<span class="font-bold text-2xl">AirAsia <span class="text-aa-red">GeoFS</span></span>
+<span class="text-2xl font-bold">AirAsia <span class="text-aa-red">GeoFS</span></span>
 </a>
 
 <div class="hidden md:flex gap-6 items-center">
@@ -52,7 +52,9 @@ const fleetImages={
 <a href="#pilot-application" class="bg-aa-red text-white px-5 py-2 rounded-full font-bold">Pilot Apply</a>
 </div>
 
-<button id="mobile-menu-btn" class="md:hidden text-2xl"><i class="fa-solid fa-bars"></i></button>
+<button id="mobile-menu-btn" class="md:hidden text-2xl">
+<i class="fa-solid fa-bars"></i>
+</button>
 </div>
 
 <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
@@ -72,13 +74,27 @@ const fleetImages={
 <section id="flight-booking" class="page-section hidden-page pt-32 pb-20 bg-white min-h-screen">
 <div class="max-w-xl mx-auto px-4">
 <form id="bookingForm" class="bg-gray-50 p-8 rounded-2xl shadow space-y-4">
-<input name="from" required placeholder="From" class="w-full p-3 border rounded">
-<input name="to" required placeholder="To" class="w-full p-3 border rounded">
-<input name="date" type="date" required class="w-full p-3 border rounded">
-<input name="passengers" type="number" min="1" required placeholder="Passengers" class="w-full p-3 border rounded">
+
+<input name="name" required placeholder="Full Name" class="w-full p-3 border rounded">
 <input name="email" type="email" required placeholder="Email" class="w-full p-3 border rounded">
-<button class="w-full bg-aa-red text-white py-3 rounded font-bold">Submit</button>
-<p id="bookingSuccess" class="hidden text-green-600 text-center">Submitted ✔</p>
+
+<div class="grid grid-cols-2 gap-3">
+<input name="from" required placeholder="From (ICAO/IATA)" class="w-full p-3 border rounded">
+<input name="to" required placeholder="To (ICAO/IATA)" class="w-full p-3 border rounded">
+</div>
+
+<input name="aircraft" required placeholder="Aircraft (A320neo, A330, etc)" class="w-full p-3 border rounded">
+
+<textarea name="notes" placeholder="Additional notes (optional)" class="w-full p-3 border rounded"></textarea>
+
+<button class="w-full bg-aa-red text-white py-3 rounded font-bold">
+Submit Ticket
+</button>
+
+<p id="bookingSuccess" class="hidden text-green-600 text-center">
+Ticket submitted ✔
+</p>
+
 </form>
 </div>
 </section>
@@ -87,13 +103,21 @@ const fleetImages={
 <section id="pilot-application" class="page-section hidden-page pt-32 pb-20 bg-gray-100 min-h-screen">
 <div class="max-w-xl mx-auto px-4">
 <form id="pilotForm" class="bg-white p-8 rounded-2xl shadow space-y-4">
+
 <input name="name" required placeholder="Full Name" class="w-full p-3 border rounded">
 <input name="email" type="email" required placeholder="Email" class="w-full p-3 border rounded">
-<input name="license" required placeholder="License / ID" class="w-full p-3 border rounded">
-<input name="hours" type="number" required placeholder="Flight Hours" class="w-full p-3 border rounded">
-<input name="logbook" placeholder="Logbook / CV Link" class="w-full p-3 border rounded">
-<button class="w-full bg-aa-red text-white py-3 rounded font-bold">Apply</button>
-<p id="pilotSuccess" class="hidden text-green-600 text-center">Application sent ✔</p>
+<input name="geofs" required placeholder="GeoFS Username" class="w-full p-3 border rounded">
+<input name="hours" type="number" required placeholder="Total Flight Hours" class="w-full p-3 border rounded">
+<textarea name="notes" placeholder="Additional Notes" class="w-full p-3 border rounded"></textarea>
+
+<button class="w-full bg-aa-red text-white py-3 rounded font-bold">
+Apply
+</button>
+
+<p id="pilotSuccess" class="hidden text-green-600 text-center">
+Application sent ✔
+</p>
+
 </form>
 </div>
 </section>
@@ -104,35 +128,61 @@ const fleetImages={
 const PILOT_WEBHOOK="https://discord.com/api/webhooks/1463589828011491481/tR5AC9_3wA9zlKF9Nn9ZP5KqYs4WnbQXQxTgaNt2WHW1MRWP0R_7oweYae7XHnSABDA7";
 const TICKET_WEBHOOK="https://discord.com/api/webhooks/1463590453441200191/p_emHmEQhQ14WoDLOgUyFqGOlWXsO0yuxWzCPDBmNFlaNKID3TOq2Ul4-J0DGmAzD6m0";
 
-document.getElementById("pilotForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const d=new FormData(e.target);
-await fetch(PILOT_WEBHOOK,{method:"POST",headers:{'Content-Type':'application/json'},
-body:JSON.stringify({embeds:[{title:"🧑‍✈️ New Pilot Application",color:15158332,
-fields:[
-{name:"Name",value:d.get("name")},
-{name:"Email",value:d.get("email")},
-{name:"License",value:d.get("license")},
-{name:"Hours",value:d.get("hours")},
-{name:"Logbook",value:d.get("logbook")||"N/A"}
-]}]})});
-document.getElementById("pilotSuccess").classList.remove("hidden");
-e.target.reset();
-});
-
+/* TICKET */
 document.getElementById("bookingForm").addEventListener("submit",async e=>{
 e.preventDefault();
 const d=new FormData(e.target);
-await fetch(TICKET_WEBHOOK,{method:"POST",headers:{'Content-Type':'application/json'},
-body:JSON.stringify({embeds:[{title:"🎫 New Booking",color:3066993,
+
+await fetch(TICKET_WEBHOOK,{
+method:"POST",
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({
+embeds:[{
+title:"🎫 New Ticket / Flight Booking",
+color:3066993,
 fields:[
-{name:"From",value:d.get("from")},
-{name:"To",value:d.get("to")},
-{name:"Date",value:d.get("date")},
-{name:"Passengers",value:d.get("passengers")},
-{name:"Email",value:d.get("email")}
-]}]})});
+{name:"👤 Name",value:d.get("name")},
+{name:"📧 Email",value:d.get("email")},
+{name:"🛫 Route",value:`${d.get("from")} → ${d.get("to")}`},
+{name:"✈ Aircraft",value:d.get("aircraft")},
+{name:"📝 Notes",value:d.get("notes")||"None"}
+],
+footer:{text:"AirAsia Virtual Airline"},
+timestamp:new Date().toISOString()
+}]
+})
+});
+
 document.getElementById("bookingSuccess").classList.remove("hidden");
+e.target.reset();
+});
+
+/* PILOT */
+document.getElementById("pilotForm").addEventListener("submit",async e=>{
+e.preventDefault();
+const d=new FormData(e.target);
+
+await fetch(PILOT_WEBHOOK,{
+method:"POST",
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({
+embeds:[{
+title:"🧑‍✈️ New Pilot Application",
+color:15158332,
+fields:[
+{name:"👤 Name",value:d.get("name")},
+{name:"📧 Email",value:d.get("email")},
+{name:"🕹 GeoFS Username",value:d.get("geofs")},
+{name:"⏱ Flight Hours",value:d.get("hours")},
+{name:"📝 Notes",value:d.get("notes")||"None"}
+],
+footer:{text:"AirAsia Virtual Airline"},
+timestamp:new Date().toISOString()
+}]
+})
+});
+
+document.getElementById("pilotSuccess").classList.remove("hidden");
 e.target.reset();
 });
 </script>
