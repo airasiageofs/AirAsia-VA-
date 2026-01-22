@@ -148,7 +148,7 @@
                     <a href="#apply" class="nav-link bg-white text-aa-red px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl">
                         Become a Pilot
                     </a>
-                    <a href="https://discord.gg/KJBQ4NNM5" target="_blank" class="bg-[#5865F2] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#4752c4] transition shadow-xl flex items-center justify-center gap-2">
+                    <a href="https://discord.gg/FPy9W7CE" target="_blank" class="bg-[#5865F2] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#4752c4] transition shadow-xl flex items-center justify-center gap-2">
                         <i class="fa-brands fa-discord"></i> Join Discord
                     </a>
                 </div>
@@ -481,21 +481,26 @@
                     <p class="opacity-90">Ready to take off? Fill out the application below.</p>
                 </div>
 
-                <form class="bg-white rounded-2xl p-8 shadow-2xl text-gray-800 space-y-6">
+                <form id="pilotForm" class="bg-white rounded-2xl p-8 shadow-2xl text-gray-800 space-y-6">
+
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-bold mb-2">Callsign (e.g. AXM123)</label>
-                            <input type="text" placeholder="Desired Callsign" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red focus:ring-1 focus:ring-aa-red transition">
+                            <input id="callsign" type="text" placeholder="Desired Callsign"
+                                class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3">
                         </div>
                         <div>
                             <label class="block text-sm font-bold mb-2">GeoFS Username</label>
-                            <input type="text" placeholder="Your GeoFS Name" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red focus:ring-1 focus:ring-aa-red transition">
+                            <input id="geofs" type="text" placeholder="Your GeoFS Name"
+                            class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3">
                         </div>
-                    </div>
+                        </div>
                     
                     <div>
                         <label class="block text-sm font-bold mb-2">Experience Level</label>
-                        <select class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red transition">
+                        <select id="experience"
+                         class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3">
+
                             <option>Student Pilot (New to GeoFS)</option>
                             <option>First Officer (Some Experience)</option>
                             <option>Captain (Veteran)</option>
@@ -504,10 +509,13 @@
 
                     <div>
                         <label class="block text-sm font-bold mb-2">Why do you want to join?</label>
-                        <textarea rows="4" placeholder="Tell us a bit about yourself..." class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red focus:ring-1 focus:ring-aa-red transition"></textarea>
+                        <textarea id="notes" rows="4" placeholder="Tell us a bit about yourself..."
+                        class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3"></textarea>
+
                     </div>
 
-                    <button type="button" class="w-full bg-aa-dark text-white font-bold py-4 rounded-lg hover:bg-black transition transform hover:-translate-y-1 shadow-lg">
+                    <button type="submit"
+                        class="w-full bg-aa-dark text-white font-bold py-4 rounded-lg hover:bg-black transition transform hover:-translate-y-1 shadow-lg">
                         Submit Application
                     </button>
                     
@@ -570,6 +578,101 @@
             const sections = document.querySelectorAll('.page-section');
             const mobileMenu = document.getElementById('mobile-menu');
             const mobileBtn = document.getElementById('mobile-menu-btn');
+            <script>
+/* ============================
+   DISCORD WEBHOOK – PILOT FORM
+   ============================ */
+
+const PILOT_WEBHOOK =
+"https://discord.com/api/webhooks/1463589828011491481/tR5AC9_3wA9zlKF9Nn9ZP5KqYs4WnbQXQxTgaNt2WHW1MRWP0R_7oweYae7XHnSABDA7";
+
+document.querySelector("#apply button").addEventListener("click", () => {
+
+    const callsign   = document.getElementById("callsign").value.trim();
+    const geofs      = document.getElementById("geofs").value.trim();
+    const experience = document.getElementById("experience").value;
+    const notes      = document.getElementById("notes").value.trim();
+
+    if (!callsign || !geofs) {
+        alert("Please fill in Callsign and GeoFS Username.");
+        return;
+    }
+
+    fetch(PILOT_WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            embeds: [{
+                title: "🧑‍✈️ New Pilot Application",
+                color: 15158332,
+                fields: [
+                    { name: "Callsign", value: callsign, inline: true },
+                    { name: "GeoFS Username", value: geofs, inline: true },
+                    { name: "Experience", value: experience },
+                    { name: "Notes", value: notes || "None" }
+                ],
+                footer: { text: "AirAsia GeoFS Virtual Airline" },
+                timestamp: new Date()
+            }]
+        })
+    })
+    .then(() => {
+        alert("Application submitted successfully!");
+    })
+    .catch(() => {
+        alert("Error sending application.");
+    });
+
+});
+
+        <script>
+/* ============================
+   DISCORD WEBHOOK – PILOT FORM
+   ============================ */
+
+const PILOT_WEBHOOK =
+"https://discord.com/api/webhooks/1463589828011491481/tR5AC9_3wA9zlKF9Nn9ZP5KqYs4WnbQXQxTgaNt2WHW1MRWP0R_7oweYae7XHnSABDA7";
+
+document.querySelector("#apply button").addEventListener("click", () => {
+
+    const callsign   = document.getElementById("callsign").value.trim();
+    const geofs      = document.getElementById("geofs").value.trim();
+    const experience = document.getElementById("experience").value;
+    const notes      = document.getElementById("notes").value.trim();
+
+    if (!callsign || !geofs) {
+        alert("Please fill in Callsign and GeoFS Username.");
+        return;
+    }
+
+    fetch(PILOT_WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            embeds: [{
+                title: "🧑‍✈️ New Pilot Application",
+                color: 15158332,
+                fields: [
+                    { name: "Callsign", value: callsign, inline: true },
+                    { name: "GeoFS Username", value: geofs, inline: true },
+                    { name: "Experience", value: experience },
+                    { name: "Notes", value: notes || "None" }
+                ],
+                footer: { text: "AirAsia GeoFS Virtual Airline" },
+                timestamp: new Date()
+            }]
+        })
+    })
+    .then(() => {
+        alert("Application submitted successfully!");
+    })
+    .catch(() => {
+        alert("Error sending application.");
+    });
+
+});
+
+
 
             // LOAD FLEET IMAGES
             // Checks the config object at the top of the file
@@ -636,5 +739,45 @@
             }
         });
     </script>
+    <script>
+const WEBHOOK_URL = "PASTE_YOUR_DISCORD_WEBHOOK_URL_HERE";
+
+document.querySelector("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const callsign = document.getElementById("callsign").value || "N/A";
+    const geofs = document.getElementById("geofs").value || "N/A";
+    const experience = document.getElementById("experience").value || "N/A";
+    const notes = document.getElementById("notes").value || "None";
+
+    const payload = {
+        username: "Pilot Application",
+        avatar_url: "https://i.imgur.com/QZ7QZ6Y.png",
+        embeds: [{
+            title: "🧑‍✈️ New Pilot Application",
+            color: 15548997,
+            fields: [
+                { name: "Callsign", value: callsign, inline: true },
+                { name: "GeoFS Username", value: geofs, inline: true },
+                { name: "Experience", value: experience, inline: false },
+                { name: "Notes", value: notes, inline: false }
+            ],
+            footer: { text: "AirAsia Virtual Airline" },
+            timestamp: new Date()
+        }]
+    };
+
+    await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+
+    alert("Application submitted!");
+    e.target.reset();
+});
+</script>
+
 </body>
+
 </html>
