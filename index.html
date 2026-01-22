@@ -1,783 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirAsia GeoFS Virtual Airlines</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Poppins (Close to AirAsia branding) -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AirAsia GeoFS Virtual Airlines</title>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'aa-red': '#ED1B24', // AirAsia Official Red
-                        'aa-dark': '#1a1a1a',
-                        'aa-grey': '#f1f1f1'
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- ========================================== -->
-    <!--      USER CONFIGURATION SECTION            -->
-    <!--      Paste your image links below          -->
-    <!-- ========================================== -->
-    <script>
-        const fleetImages = {
-            "a320_200": "",      // Paste link for A320-200 here
-            "a320_neo": "",      // Paste link for A320 Neo here
-            "a330_232": "",      // Paste link for A330-232 here
-            "a330_common": "",   // Paste link for A330-200/300 here
-            "a330_neo": ""       // Paste link for A330neo here
-        };
-    </script>
-    
-    <style>
-        .hero-pattern {
-            background-color: #ED1B24;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        
-        .plane-card:hover {
-            transform: translateY(-5px);
-        }
+<script>
+tailwind.config={theme:{extend:{colors:{'aa-red':'#ED1B24','aa-dark':'#1a1a1a','aa-grey':'#f1f1f1'},fontFamily:{sans:['Poppins','sans-serif']}}}}
+</script>
 
-        /* Custom scrollbar for route lists if they get too long */
-        .route-list::-webkit-scrollbar {
-            width: 6px;
-        }
-        .route-list::-webkit-scrollbar-thumb {
-            background-color: #ED1B24;
-            border-radius: 3px;
-        }
-        .route-list::-webkit-scrollbar-track {
-            background-color: #f1f1f1;
-        }
+<script>
+const fleetImages={
+"a320_200":"",
+"a320_neo":"",
+"a330_232":"",
+"a330_common":"",
+"a330_neo":""
+};
+</script>
 
-        /* Animation for page switching */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hidden-page {
-            display: none;
-        }
-    </style>
+<style>
+.hidden-page{display:none}
+.fade-in{animation:fadeIn .5s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50 flex flex-col min-h-screen">
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md fixed w-full z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex items-center">
-                    <!-- Logo Area -->
-                    <a href="#home" class="nav-link flex-shrink-0 flex items-center gap-2">
-                        <div class="w-10 h-10 bg-aa-red rounded-full flex items-center justify-center text-white text-xl font-bold">
-                            <i class="fa-solid fa-plane-up"></i>
-                        </div>
-                        <span class="font-bold text-2xl tracking-tighter">AirAsia <span class="text-aa-red">GeoFS</span></span>
-                    </a>
-                </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">Home</a>
-                    <a href="#about" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">About</a>
-                    <a href="#news" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">News</a>
-                    <a href="#fleet" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">Fleet</a>
-                    <a href="#routes" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">Routes</a>
-                    <a href="#apply" class="nav-link bg-aa-red text-white px-6 py-2 rounded-full font-bold hover:bg-red-700 transition shadow-lg transform hover:scale-105">
-                        <a href="#flight-booking" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">
-  Book Flight
+<body class="font-sans bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+<!-- NAV -->
+<nav class="bg-white shadow-md fixed w-full z-50">
+<div class="max-w-7xl mx-auto px-4 flex justify-between h-20 items-center">
+<a href="#home" class="nav-link flex items-center gap-2">
+<div class="w-10 h-10 bg-aa-red rounded-full flex items-center justify-center text-white">
+<i class="fa-solid fa-plane-up"></i>
+</div>
+<span class="font-bold text-2xl">AirAsia <span class="text-aa-red">GeoFS</span></span>
 </a>
 
-<a href="#pilot-application" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">
-  Pilot Apply
-</a>
-<a href="#pilot-application"
-   class="nav-link bg-aa-red text-white px-6 py-2 rounded-full font-bold
-          hover:bg-red-700 transition shadow-lg transform hover:scale-105">
-</a>
-                </div>
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-aa-red focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+<div class="hidden md:flex gap-6 items-center">
+<a href="#home" class="nav-link">Home</a>
+<a href="#about" class="nav-link">About</a>
+<a href="#news" class="nav-link">News</a>
+<a href="#fleet" class="nav-link">Fleet</a>
+<a href="#routes" class="nav-link">Routes</a>
+<a href="#flight-booking" class="nav-link">Book Flight</a>
+<a href="#pilot-application" class="bg-aa-red text-white px-5 py-2 rounded-full font-bold">Pilot Apply</a>
+</div>
 
-        <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="nav-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-aa-red hover:bg-gray-50 rounded-md">Home</a>
-                <a href="#about" class="nav-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-aa-red hover:bg-gray-50 rounded-md">About</a>
-                <a href="#news" class="nav-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-aa-red hover:bg-gray-50 rounded-md">News</a>
-                <a href="#fleet" class="nav-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-aa-red hover:bg-gray-50 rounded-md">Fleet</a>
-                <a href="#routes" class="nav-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-aa-red hover:bg-gray-50 rounded-md">Routes</a>
-                <a href="#apply" class="nav-link block px-3 py-2 text-base font-medium text-aa-red font-bold hover:bg-gray-50 rounded-md">Join Crew</a>
-            </div>
-        </div>
-    </nav>
+<button id="mobile-menu-btn" class="md:hidden text-2xl"><i class="fa-solid fa-bars"></i></button>
+</div>
 
-    <!-- Main Content Container -->
-    <main class="flex-grow">
-        
-        <!-- PAGE: HOME -->
-        <section id="home" class="page-section hero-pattern pt-32 pb-24 md:pt-48 md:pb-32 px-4 relative overflow-hidden min-h-screen">
-            <div class="max-w-7xl mx-auto relative z-10 text-center text-white">
-                <h1 class="text-4xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
-                    Now Everyone Can Fly... <br/><span class="text-white opacity-90 italic">Virtually.</span>
-                </h1>
-                <p class="text-lg md:text-2xl mb-10 max-w-2xl mx-auto font-light opacity-90">
-                    Welcome to the premier Low-Cost Carrier on GeoFS. Building the sharpest crew in the browser skies.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#apply" class="nav-link bg-white text-aa-red px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl">
-                        Become a Pilot
-                    </a>
-                    <a href="https://discord.gg/KJBQ4NNM5" target="_blank" class="bg-[#5865F2] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#4752c4] transition shadow-xl flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-discord"></i> Join Discord
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Decorative Elements -->
-            <div class="absolute -bottom-10 -right-10 opacity-10 text-white transform -rotate-12">
-                <i class="fa-solid fa-plane-departure text-[300px]"></i>
-            </div>
-        </section>
+<div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+<a href="#home" class="nav-link block p-3">Home</a>
+<a href="#about" class="nav-link block p-3">About</a>
+<a href="#news" class="nav-link block p-3">News</a>
+<a href="#fleet" class="nav-link block p-3">Fleet</a>
+<a href="#routes" class="nav-link block p-3">Routes</a>
+<a href="#flight-booking" class="nav-link block p-3">Book Flight</a>
+<a href="#pilot-application" class="nav-link block p-3 font-bold text-aa-red">Pilot Apply</a>
+</div>
+</nav>
 
-        <!-- PAGE: ABOUT -->
-        <section id="about" class="page-section hidden-page pt-32 pb-20 bg-white min-h-screen">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Mission</h2>
-                    <div class="w-20 h-1 bg-aa-red mx-auto"></div>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-12 items-start">
-                    <!-- For Pilots -->
-                    <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition">
-                        <div class="w-14 h-14 bg-aa-red rounded-lg flex items-center justify-center text-white text-2xl mb-6">
-                            <i class="fa-solid fa-user-pilot"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-aa-dark">For The Pilots</h3>
-                        <p class="text-gray-600 leading-relaxed mb-4">
-                            You aren't just pressing 'Autopilot'. You're managing schedules, climbing the ranks from Cadet to Senior Captain, and flying genuine AirAsia routes. 
-                        </p>
-                        <p class="text-gray-600 font-medium">
-                            We provide the livery, the dispatch, and the flight hours. You bring the passion for the A320 and a steady hand.
-                        </p>
-                    </div>
+<main class="flex-grow">
 
-                    <!-- For Passengers -->
-                    <div class="bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition">
-                        <div class="w-14 h-14 bg-aa-dark rounded-lg flex items-center justify-center text-white text-2xl mb-6">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-aa-dark">For The Community</h3>
-                        <p class="text-gray-600 leading-relaxed mb-4">
-                            Tired of trolls in the global chat? Come fly with the pros. Hop into our events, ride along in the jumpseat, or roleplay as our VIPs.
-                        </p>
-                        <p class="text-gray-600 font-medium">
-                            We provide the smoothest virtual service (and the best Discord memes). Don't fly default. Fly Red.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE: NEWS -->
-        <section id="news" class="page-section hidden-page pt-32 pb-20 bg-gray-100 min-h-screen">
-            <div class="max-w-5xl mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">News & Announcements</h2>
-                    <p class="text-gray-500">From the CEO's desk</p>
-                </div>
-
-                <div class="space-y-6">
-                    <!-- CEO Update -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-aa-red">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg">Leadership Update</h3>
-                            <span class="text-xs text-gray-400">Jan 2026</span>
-                        </div>
-                        <p class="text-gray-600 text-sm">
-                            Our CEO will be on temporary leave from <strong>23-01-2026 to 12-03-2026</strong> for Board Exams. 
-                            <strong>@Ransom</strong> has been appointed as the Acting CEO for this duration. Good luck to our CEO on their exams!
-                        </p>
-                    </div>
-
-                    <!-- Merger News -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-aa-red">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg">AirAsia X Merger Complete</h3>
-                            <span class="text-xs text-gray-400">Jan 19, 2026</span>
-                        </div>
-                        <p class="text-gray-600 text-sm">
-                            @Verified Members: AirAsia X is officially merging into AirAsia Berhad starting today. All AirAsia X planes are now under the control of AirAsia Berhad.
-                            The Final Codeshare Airline List has also been released.
-                        </p>
-                    </div>
-
-                    <!-- Incident/Operational News -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-gray-400">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg">Operational Updates</h3>
-                            <span class="text-xs text-gray-400">Jan 2026</span>
-                        </div>
-                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-2">
-                            <li><strong>Route Alert:</strong> AirAsia will suspend flying over Iranian airspace due to regional tensions.</li>
-                            <li><strong>New Route:</strong> Operations have begun for the Kuala Lumpur - Kertajati sector.</li>
-                            <li><strong>Condolences:</strong> We share our deepest condolences regarding the tragic loss of the Indonesian Marine Services ATR aircraft in the Java Sea.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE: FLEET -->
-        <section id="fleet" class="page-section hidden-page pt-32 pb-20 bg-white min-h-screen">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Fleet</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">A standardized fleet for maximum efficiency.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- A320-200 -->
-                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg plane-card border border-gray-100">
-                        <div class="h-40 bg-gray-200 flex items-center justify-center text-gray-400 fleet-img-placeholder" data-fleet-type="a320_200">
-                            <i class="fa-solid fa-plane text-5xl"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="text-xl font-bold text-gray-900">A320-200</h3>
-                                <span class="bg-aa-red text-white text-xs px-2 py-1 rounded-md font-bold">35 Units</span>
-                            </div>
-                            <p class="text-gray-500 text-sm">The classic workhorse for our domestic and regional routes.</p>
-                        </div>
-                    </div>
-
-                    <!-- A320 Neo -->
-                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg plane-card border border-gray-100">
-                        <div class="h-40 bg-gray-200 flex items-center justify-center text-gray-400 fleet-img-placeholder" data-fleet-type="a320_neo">
-                            <i class="fa-solid fa-plane text-5xl"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="text-xl font-bold text-gray-900">A320neo</h3>
-                                <span class="bg-aa-red text-white text-xs px-2 py-1 rounded-md font-bold">50 Units</span>
-                            </div>
-                            <p class="text-gray-500 text-sm">New Engine Option. Higher efficiency, lower noise footprint.</p>
-                        </div>
-                    </div>
-
-                    <!-- A330-232 -->
-                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg plane-card border border-gray-100">
-                        <div class="h-40 bg-gray-200 flex items-center justify-center text-gray-400 fleet-img-placeholder" data-fleet-type="a330_232">
-                            <i class="fa-solid fa-plane text-5xl"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="text-xl font-bold text-gray-900">A330-232</h3>
-                                <span class="bg-blue-900 text-white text-xs px-2 py-1 rounded-md font-bold">17 Units</span>
-                            </div>
-                            <p class="text-gray-500 text-sm">Long haul variant powered by Pratt & Whitney engines.</p>
-                        </div>
-                    </div>
-
-                    <!-- A330-200/300 -->
-                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg plane-card border border-gray-100 lg:col-start-1 lg:ml-auto">
-                        <!-- Centering logic for bottom row in 3 col grid -->
-                        <div class="h-40 bg-gray-200 flex items-center justify-center text-gray-400 fleet-img-placeholder" data-fleet-type="a330_common">
-                            <i class="fa-solid fa-plane text-5xl"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="text-xl font-bold text-gray-900">A330-200/300</h3>
-                                <span class="bg-blue-900 text-white text-xs px-2 py-1 rounded-md font-bold">25 Units</span>
-                            </div>
-                            <p class="text-gray-500 text-sm">The backbone of our medium-to-long haul high capacity network.</p>
-                        </div>
-                    </div>
-
-                    <!-- A330N -->
-                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg plane-card border border-gray-100 lg:col-start-2 lg:mr-auto">
-                        <div class="h-40 bg-gray-200 flex items-center justify-center text-gray-400 fleet-img-placeholder" data-fleet-type="a330_neo">
-                            <i class="fa-solid fa-plane text-5xl"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="text-xl font-bold text-gray-900">A330neo</h3>
-                                <span class="bg-blue-900 text-white text-xs px-2 py-1 rounded-md font-bold">10 Units</span>
-                            </div>
-                            <p class="text-gray-500 text-sm">The latest generation widebody for the future of AirAsia.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE: ROUTES -->
-        <!-- PAGE: FLIGHT BOOKING -->
+<!-- FLIGHT BOOKING -->
 <section id="flight-booking" class="page-section hidden-page pt-32 pb-20 bg-white min-h-screen">
-  <div class="max-w-xl mx-auto px-4">
-    <div class="text-center mb-10">
-      <h2 class="text-3xl font-bold text-aa-red mb-2">Flight Booking</h2>
-      <p class="text-gray-500">Request a virtual AirAsia flight</p>
-    </div>
-
-    <form id="bookingForm" class="bg-gray-50 rounded-2xl p-8 shadow-lg space-y-4">
-      <input type="text" placeholder="From (Airport / City)" class="w-full p-3 rounded-lg border" required>
-      <input type="text" placeholder="To (Airport / City)" class="w-full p-3 rounded-lg border" required>
-      <input type="date" class="w-full p-3 rounded-lg border" required>
-      <input type="number" min="1" placeholder="Passengers" class="w-full p-3 rounded-lg border" required>
-      <input type="email" placeholder="Contact Email" class="w-full p-3 rounded-lg border" required>
-
-      <button type="submit" class="w-full bg-aa-red text-white font-bold py-3 rounded-lg hover:bg-red-700 transition">
-        Submit Booking
-      </button>
-
-      <p id="bookingSuccess" class="hidden text-green-600 text-center font-medium mt-4">
-        Booking request submitted successfully ✔
-      </p>
-    </form>
-  </div>
+<div class="max-w-xl mx-auto px-4">
+<form id="bookingForm" class="bg-gray-50 p-8 rounded-2xl shadow space-y-4">
+<input name="from" required placeholder="From" class="w-full p-3 border rounded">
+<input name="to" required placeholder="To" class="w-full p-3 border rounded">
+<input name="date" type="date" required class="w-full p-3 border rounded">
+<input name="passengers" type="number" min="1" required placeholder="Passengers" class="w-full p-3 border rounded">
+<input name="email" type="email" required placeholder="Email" class="w-full p-3 border rounded">
+<button class="w-full bg-aa-red text-white py-3 rounded font-bold">Submit</button>
+<p id="bookingSuccess" class="hidden text-green-600 text-center">Submitted ✔</p>
+</form>
+</div>
 </section>
 
-        <section id="routes" class="page-section hidden-page pt-32 pb-20 bg-aa-grey min-h-screen">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold mb-4">Destinations</h2>
-                    <p class="text-gray-600">Connecting Asia and the World.</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Malaysia -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex items-center gap-3 mb-4 border-b pb-2 border-red-100">
-                            <i class="fa-solid fa-flag text-aa-red"></i>
-                            <h3 class="font-bold text-lg text-aa-dark">Domestic (Malaysia)</h3>
-                        </div>
-                        <ul class="text-sm text-gray-600 space-y-1 route-list max-h-60 overflow-y-auto">
-                            <li>Kuala Lumpur (Hub)</li>
-                            <li>Penang</li>
-                            <li>Langkawi</li>
-                            <li>Johor Bahru</li>
-                            <li>Kuching</li>
-                            <li>Miri</li>
-                            <li>Sibu</li>
-                            <li>Bintulu</li>
-                            <li>Kota Kinabalu</li>
-                            <li>Sandakan</li>
-                            <li>Tawau</li>
-                            <li>Labuan</li>
-                            <li>Alor Setar</li>
-                            <li>Kota Bharu</li>
-                            <li>Kuala Terengganu</li>
-                        </ul>
-                    </div>
-
-                    <!-- SE Asia -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex items-center gap-3 mb-4 border-b pb-2 border-red-100">
-                            <i class="fa-solid fa-earth-asia text-aa-red"></i>
-                            <h3 class="font-bold text-lg text-aa-dark">Southeast Asia</h3>
-                        </div>
-                        <ul class="text-sm text-gray-600 space-y-1 route-list max-h-60 overflow-y-auto">
-                            <li>Singapore</li>
-                            <li>Jakarta</li>
-                            <li>Bali (Denpasar)</li>
-                            <li>Medan</li>
-                            <li>Surabaya</li>
-                            <li>Yogyakarta</li>
-                            <li>Manila</li>
-                            <li>Cebu</li>
-                            <li>Bangkok (Don Mueang)</li>
-                            <li>Chiang Mai</li>
-                            <li>Phuket</li>
-                            <li>Ho Chi Minh City</li>
-                            <li>Hanoi</li>
-                            <li>Siem Reap</li>
-                            <li>Phnom Penh</li>
-                            <li>Vientiane</li>
-                        </ul>
-                    </div>
-
-                    <!-- South Asia -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex items-center gap-3 mb-4 border-b pb-2 border-red-100">
-                            <i class="fa-solid fa-mosque text-aa-red"></i>
-                            <h3 class="font-bold text-lg text-aa-dark">South Asia</h3>
-                        </div>
-                        <ul class="text-sm text-gray-600 space-y-1 route-list max-h-60 overflow-y-auto">
-                            <li>Delhi</li>
-                            <li>Mumbai</li>
-                            <li>Chennai</li>
-                            <li>Kolkata</li>
-                            <li>Ahmedabad</li>
-                            <li>Dhaka</li>
-                            <li>Kathmandu</li>
-                            <li>Male</li>
-                            <li>Colombo</li>
-                            <li>Tiruchirapalli</li>
-                            <li>Cochin</li>
-                            <li>Trivandrum</li>
-                            <li>Kozhikode</li>
-                        </ul>
-                    </div>
-
-                    <!-- East Asia -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex items-center gap-3 mb-4 border-b pb-2 border-red-100">
-                            <i class="fa-solid fa-torii-gate text-aa-red"></i>
-                            <h3 class="font-bold text-lg text-aa-dark">East Asia</h3>
-                        </div>
-                        <ul class="text-sm text-gray-600 space-y-1 route-list max-h-60 overflow-y-auto">
-                            <li>Hong Kong</li>
-                            <li>Macau</li>
-                            <li>Taipei</li>
-                            <li>Tokyo (Narita)</li>
-                            <li>Osaka</li>
-                            <li>Seoul</li>
-                            <li>Busan</li>
-                            <li>Shanghai</li>
-                            <li>Beijing</li>
-                            <li>Guangzhou</li>
-                        </ul>
-                    </div>
-
-                    <!-- Australia & Middle East -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex items-center gap-3 mb-4 border-b pb-2 border-red-100">
-                            <i class="fa-solid fa-globe text-aa-red"></i>
-                            <h3 class="font-bold text-lg text-aa-dark">Aus & Middle East</h3>
-                        </div>
-                        <div class="grid grid-cols-1 gap-4">
-                            <div>
-                                <h4 class="text-xs font-bold text-gray-400 uppercase mb-1">Australia</h4>
-                                <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>Sydney</li>
-                                    <li>Gold Coast</li>
-                                    <li>Adelaide</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-gray-400 uppercase mb-1">Middle East</h4>
-                                <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>Abu Dhabi</li>
-                                    <li>Jeddah</li>
-                                    <li>Riyadh</li>
-                                    <li>Muscat</li>
-                                    <li>Tehran (Suspended)</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Coming Soon / Map -->
-                    <div class="bg-aa-dark rounded-xl shadow-sm p-6 text-white flex flex-col justify-center items-center text-center">
-                        <i class="fa-solid fa-map-location-dot text-4xl mb-4 text-aa-red"></i>
-                        <h3 class="font-bold text-lg">More Routes Coming</h3>
-                        <p class="text-sm text-gray-400 mt-2">We are constantly expanding our virtual network. Check Discord for the latest charts.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-          <!-- PAGE: PILOT APPLICATION -->
+<!-- PILOT APPLICATION -->
 <section id="pilot-application" class="page-section hidden-page pt-32 pb-20 bg-gray-100 min-h-screen">
-  <div class="max-w-xl mx-auto px-4">
-    <div class="text-center mb-10">
-      <h2 class="text-3xl font-bold text-aa-red mb-2">Pilot Application</h2>
-      <p class="text-gray-500">Apply to fly with AirAsia GeoFS</p>
-    </div>
-
-    <form id="pilotForm" class="bg-white rounded-2xl p-8 shadow-lg space-y-4">
-      <input type="text" placeholder="Full Name" class="w-full p-3 rounded-lg border" required>
-      <input type="email" placeholder="Email" class="w-full p-3 rounded-lg border" required>
-      <input type="text" placeholder="License / ID" class="w-full p-3 rounded-lg border" required>
-      <input type="number" placeholder="Flight Hours" class="w-full p-3 rounded-lg border" required>
-      <input type="url" placeholder="Logbook / CV Link" class="w-full p-3 rounded-lg border">
-
-      <button type="submit" class="w-full bg-aa-red text-white font-bold py-3 rounded-lg hover:bg-red-700 transition">
-        Apply Now
-      </button>
-
-      <p id="pilotSuccess" class="hidden text-green-600 text-center font-medium mt-4">
-        Application submitted successfully ✔
-      </p>
-    </form>
-  </div>
+<div class="max-w-xl mx-auto px-4">
+<form id="pilotForm" class="bg-white p-8 rounded-2xl shadow space-y-4">
+<input name="name" required placeholder="Full Name" class="w-full p-3 border rounded">
+<input name="email" type="email" required placeholder="Email" class="w-full p-3 border rounded">
+<input name="license" required placeholder="License / ID" class="w-full p-3 border rounded">
+<input name="hours" type="number" required placeholder="Flight Hours" class="w-full p-3 border rounded">
+<input name="logbook" placeholder="Logbook / CV Link" class="w-full p-3 border rounded">
+<button class="w-full bg-aa-red text-white py-3 rounded font-bold">Apply</button>
+<p id="pilotSuccess" class="hidden text-green-600 text-center">Application sent ✔</p>
+</form>
+</div>
 </section>
 
+</main>
 
-        
+<script>
+const PILOT_WEBHOOK="https://discord.com/api/webhooks/1463589828011491481/tR5AC9_3wA9zlKF9Nn9ZP5KqYs4WnbQXQxTgaNt2WHW1MRWP0R_7oweYae7XHnSABDA7";
+const TICKET_WEBHOOK="https://discord.com/api/webhooks/1463590453441200191/p_emHmEQhQ14WoDLOgUyFqGOlWXsO0yuxWzCPDBmNFlaNKID3TOq2Ul4-J0DGmAzD6m0";
 
-    <!-- Footer (Global) -->
-    <footer class="bg-aa-dark text-white py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center gap-2 mb-4">
-                         <div class="w-8 h-8 bg-aa-red rounded-full flex items-center justify-center text-white text-sm font-bold">
-                            <i class="fa-solid fa-plane-up"></i>
-                        </div>
-                        <span class="font-bold text-xl">AirAsia GeoFS</span>
-                    </div>
-                    <p class="text-gray-400 text-sm max-w-sm">
-                        A virtual airline for the GeoFS Flight Simulator community. We are a non-profit fan group and are not affiliated with the real AirAsia Berhad.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <!-- Updated footer links to use router -->
-                        <li><a href="#home" class="nav-link hover:text-aa-red transition">Home</a></li>
-                        <li><a href="#about" class="nav-link hover:text-aa-red transition">About</a></li>
-                        <li><a href="#news" class="nav-link hover:text-aa-red transition">News</a></li>
-                        <li><a href="#routes" class="nav-link hover:text-aa-red transition">Destinations</a></li>
-                        <li>
-  <a href="#flight-booking" class="nav-link hover:text-aa-red">
-    Book Flight
-  </a>
-</li>
-
-<li>
-  <a href="#pilot-application" class="nav-link hover:text-aa-red">
-    Pilot Apply
-  </a>
-</li>
-
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">Connect</h4>
-                    <div class="flex space-x-4">
-                        <a href="https://discord.gg/KJBQ4NNM5" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-aa-red transition"><i class="fa-brands fa-discord"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-aa-red transition"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-aa-red transition"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-                <p>&copy; 2026 AirAsia GeoFS Virtual. All rights reserved.</p>
-                <p>Designed for GeoFS Pilots.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript Router Logic -->
-    <script>
-        // Booking form success
-document.getElementById('bookingForm')?.addEventListener('submit', e => {
-  e.preventDefault();
-  document.getElementById('bookingSuccess').classList.remove('hidden');
-  e.target.reset();
+document.getElementById("pilotForm").addEventListener("submit",async e=>{
+e.preventDefault();
+const d=new FormData(e.target);
+await fetch(PILOT_WEBHOOK,{method:"POST",headers:{'Content-Type':'application/json'},
+body:JSON.stringify({embeds:[{title:"🧑‍✈️ New Pilot Application",color:15158332,
+fields:[
+{name:"Name",value:d.get("name")},
+{name:"Email",value:d.get("email")},
+{name:"License",value:d.get("license")},
+{name:"Hours",value:d.get("hours")},
+{name:"Logbook",value:d.get("logbook")||"N/A"}
+]}]})});
+document.getElementById("pilotSuccess").classList.remove("hidden");
+e.target.reset();
 });
 
-// Pilot form success
-document.getElementById('pilotForm')?.addEventListener('submit', e => {
-  e.preventDefault();
-  document.getElementById('pilotSuccess').classList.remove('hidden');
-  e.target.reset();
+document.getElementById("bookingForm").addEventListener("submit",async e=>{
+e.preventDefault();
+const d=new FormData(e.target);
+await fetch(TICKET_WEBHOOK,{method:"POST",headers:{'Content-Type':'application/json'},
+body:JSON.stringify({embeds:[{title:"🎫 New Booking",color:3066993,
+fields:[
+{name:"From",value:d.get("from")},
+{name:"To",value:d.get("to")},
+{name:"Date",value:d.get("date")},
+{name:"Passengers",value:d.get("passengers")},
+{name:"Email",value:d.get("email")}
+]}]})});
+document.getElementById("bookingSuccess").classList.remove("hidden");
+e.target.reset();
 });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Select all navigation links (with class 'nav-link')
-            // Note: I added class 'nav-link' to standard nav items for cleaner selection,
-            // but also selecting by href helps catch any missed ones.
-            const links = document.querySelectorAll('a[href^="#"]');
-            const sections = document.querySelectorAll('.page-section');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-
-            // LOAD FLEET IMAGES
-            // Checks the config object at the top of the file
-            document.querySelectorAll('.fleet-img-placeholder').forEach(div => {
-                const type = div.getAttribute('data-fleet-type');
-                if (fleetImages[type] && fleetImages[type].trim() !== "") {
-                    div.innerHTML = `<img src="${fleetImages[type]}" class="w-full h-full object-cover" alt="${type}">`;
-                }
-            });
-
-            // Function to handle page switching
-            function showPage(targetId) {
-                // 1. Hide all sections
-                sections.forEach(section => {
-                    section.classList.add('hidden-page');
-                    section.classList.remove('fade-in'); // Reset animation
-                });
-
-                // 2. Find target section
-                const targetSection = document.getElementById(targetId);
-                
-                if (targetSection) {
-                    // 3. Show target section
-                    targetSection.classList.remove('hidden-page');
-                    targetSection.classList.add('fade-in');
-                    
-                    // 4. Scroll to top instantly
-                    window.scrollTo(0, 0);
-                }
-            }
-
-            // Mobile Menu Toggle
-            mobileBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // Add click listeners to all internal links
-            links.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const href = link.getAttribute('href');
-                    
-                    // Only intercept internal hash links
-                    if (href.startsWith('#') && href.length > 1) {
-                        e.preventDefault();
-                        const targetId = href.substring(1); // remove '#'
-                        
-                        showPage(targetId);
-
-                        // Close mobile menu if open
-                        if (!mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden');
-                        }
-                    }
-                });
-            });
-
-            // Initial Load Logic
-            // If user loads page with #news, go to news. Otherwise default to home.
-            const initialHash = window.location.hash.substring(1);
-            if (initialHash && document.getElementById(initialHash)) {
-                showPage(initialHash);
-            } else {
-                showPage('home');
-            }
-        });
-        const PILOT_WEBHOOK =
-"https://discord.com/api/webhooks/1463589828011491481/tR5AC9_3wA9zlKF9Nn9ZP5KqYs4WnbQXQxTgaNt2WHW1MRWP0R_7oweYae7XHnSABDA7";
-
-document.getElementById("pilotForm")?.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const name = e.target.querySelector('input[placeholder="Full Name"]').value;
-  const email = e.target.querySelector('input[type="email"]').value;
-  const geofs = e.target.querySelector('input[placeholder="GeoFS Username"]').value;
-  const hours = e.target.querySelector("select").value;
-
-  const payload = {
-    username: "AirAsia VA Applications",
-    avatar_url: "https://i.imgur.com/6X8JZpZ.png",
-    embeds: [
-      {
-        title: "🧑‍✈️ New Pilot Application",
-        color: 15158332,
-        fields: [
-          { name: "👤 Name", value: name, inline: true },
-          { name: "📧 Email", value: email, inline: true },
-          { name: "🛫 GeoFS Username", value: geofs, inline: true },
-          { name: "⏱ Flight Hours", value: hours, inline: true }
-        ],
-        footer: { text: "AirAsia Virtual Airline" },
-        timestamp: new Date().toISOString()
-      }
-    ]
-  };
-
-  try {
-    await fetch(PILOT_WEBHOOK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    document.getElementById("pilotSuccess").classList.remove("hidden");
-    e.target.reset();
-  } catch (err) {
-    alert("Failed to submit application. Try again.");
-    console.error(err);
-  }
-});
-const TICKET_WEBHOOK =
-"https://discord.com/api/webhooks/1463590453441200191/p_emHmEQhQ14WoDLOgUyFqGOlWXsO0yuxWzCPDBmNFlaNKID3TOq2Ul4-J0DGmAzD6m0";
-
-document.getElementById("bookingForm")?.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const data = new FormData(e.target);
-
-  const payload = {
-    username: "AirAsia VA Tickets",
-    avatar_url: "https://i.imgur.com/6X8JZpZ.png",
-    embeds: [
-      {
-        title: "🎫 New Ticket / Flight Booking",
-        color: 3066993,
-        fields: [
-          { name: "👤 Name", value: data.get("name") || "N/A", inline: true },
-          { name: "📧 Email", value: data.get("email") || "N/A", inline: true },
-          {
-            name: "🛫 Route",
-            value: `${data.get("from") || "?"} → ${data.get("to") || "?"}`,
-            inline: false
-          },
-          { name: "✈️ Aircraft", value: data.get("aircraft") || "N/A", inline: true },
-          { name: "📝 Notes", value: data.get("notes") || "None", inline: false }
-        ],
-        footer: { text: "AirAsia Virtual Airline" },
-        timestamp: new Date().toISOString()
-      }
-    ]
-  };
-
-  try {
-    await fetch(TICKET_WEBHOOK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    document.getElementById("bookingSuccess").classList.remove("hidden");
-    e.target.reset();
-  } catch (err) {
-    alert("Ticket submission failed. Try again.");
-    console.error(err);
-  }
-});
-
-    </script>
-  
+</script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
