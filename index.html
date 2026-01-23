@@ -132,8 +132,8 @@ tailwind.config = {
     <span class="text-sm text-gray-600 dark:text-gray-300">🌙</span>
 
     <label class="relative inline-flex items-center cursor-pointer">
-        <input type="checkbox" id="darkToggle" class="sr-only">
-        <div class="w-11 h-6 bg-gray-300 rounded-full peer 
+        <input type="checkbox" id="darkToggle" class="sr-only peer">
+        <div class="w-11 h-6 bg-gray-300 rounded-full 
                     peer-checked:bg-aa-red 
                     after:content-[''] after:absolute after:top-0.5 after:left-[2px]
                     after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all
@@ -143,7 +143,6 @@ tailwind.config = {
     <span class="text-sm text-gray-600 dark:text-gray-300">☀️</span>
 </div>
 
-                </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
@@ -699,23 +698,31 @@ if (localStorage.theme === "dark") {
     toggle.checked = true;
 }
 
-// Toggle mode
-toggle.addEventListener("change", () => {
-    if (toggle.checked) {
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("darkToggle");
+    const html = document.documentElement;
+
+    if (!toggle) return;
+
+    // Load saved mode
+    if (localStorage.theme === "dark") {
         html.classList.add("dark");
-        localStorage.theme = "dark";
-    } else {
-        html.classList.remove("dark");
-        localStorage.theme = "light";
+        toggle.checked = true;
     }
+
+    toggle.addEventListener("change", () => {
+        html.classList.toggle("dark", toggle.checked);
+        localStorage.theme = toggle.checked ? "dark" : "light";
+    });
 });
 </script>
-
 
     
 </body>
 
 </html>
+
 
 
 
