@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+/* Dark mode override */
+body.dark-mode {
+  background-color: #0f0f0f;
+  color: #ffffff;
+}
+
+/* Text + sections */
+body.dark-mode section,
+body.dark-mode nav {
+  background-color: #0f0f0f !important;
+  color: #ffffff;
+}
+
+/* Links */
+body.dark-mode a {
+  color: #ffffff;
+}
+
+/* Cards / boxes */
+body.dark-mode .bg-white {
+  background-color: #1a1a1a !important;
+}
+
+/* Fix Discord button */
+body.dark-mode .discord-btn {
+  background-color: #5865F2 !important;
+  color: #ffffff !important;
+}
+</style>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AirAsia Virtual Airlines</title>
@@ -112,7 +143,7 @@
 <a href="#tickets" class="nav-link bg-aa-red text-white px-6 py-2 rounded-full font-bold hover:bg-red-700 transition shadow-lg transform hover:scale-105">
     Bookings
 </a>
-                    <button id="themeToggle"
+                    <button id="darkToggle"
   class="ml-4 p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition">
   🌙
 </button>
@@ -166,10 +197,10 @@
 
         <!-- CTA Buttons -->
             <a href="https://discord.gg/KJBQ4NNM5"
-               target="_blank"
-               class="bg-[#5865F2] text-white px-6 py-3 rounded-full font-semibold text-base hover:bg-[#4752c4] transition shadow-lg flex items-center gap-2">
-                <i class="fa-brands fa-discord"></i> Join Discord
-            </a>
+   target="_blank"
+   class="discord-btn bg-[#5865F2] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4752c4] transition shadow-lg flex items-center gap-2">
+   <i class="fa-brands fa-discord"></i> Join Discord
+</a>
         </div>
     </div>
 
@@ -656,24 +687,23 @@
             }
         });
     </script>
-    <script>
-const toggleBtn = document.getElementById("themeToggle");
+  <script>
+const btn = document.getElementById("darkToggle");
 
-// Load saved theme
-if (localStorage.theme === "dark") {
-  document.documentElement.classList.add("dark");
-  toggleBtn.textContent = "☀️";
+if (localStorage.getItem("darkMode") === "on") {
+  document.body.classList.add("dark-mode");
+  btn.textContent = "☀️";
 }
 
-toggleBtn.addEventListener("click", () => {
-  document.documentElement.classList.toggle("dark");
+btn.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
 
-  if (document.documentElement.classList.contains("dark")) {
-    localStorage.theme = "dark";
-    toggleBtn.textContent = "☀️";
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("darkMode", "on");
+    btn.textContent = "☀️";
   } else {
-    localStorage.theme = "light";
-    toggleBtn.textContent = "🌙";
+    localStorage.setItem("darkMode", "off");
+    btn.textContent = "🌙";
   }
 });
 </script>
@@ -681,6 +711,7 @@ toggleBtn.addEventListener("click", () => {
 </body>
 
 </html>
+
 
 
 
