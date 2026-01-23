@@ -147,38 +147,39 @@
     <main class="flex-grow">
         
         <!-- PAGE: HOME -->
-       <section id="home"
+    <section id="home"
   class="page-section relative min-h-screen overflow-hidden bg-cover bg-center pt-32 pb-24 md:pt-48 md:pb-32 px-4"
-  style="background-image: url('https://raw.githubusercontent.com/airasia-virtual-airlines/AirAsia-Virtual-Airlines/main/images/Screenshot%202026-01-23%20122610.png');">
+  style="
+    background-image: url('https://raw.githubusercontent.com/airasia-virtual-airlines/AirAsia-Virtual-Airlines/main/images/Screenshot%202026-01-23%20122610.png');
+    filter: none;
+  ">
 
-   <!-- Gradient Overlay -->
-           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent"></div>
+    <!-- Single Gradient Overlay (no blur) -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent"></div>
 
+    <!-- Main Content (bottom-aligned, visible on load) -->
+    <div class="max-w-7xl mx-auto relative z-10 text-white
+                min-h-screen flex items-end pb-24 text-center">
 
-    <!-- Main Content -->
-   <div class="max-w-7xl mx-auto relative z-10 text-white
-            min-h-screen flex items-end pb-24 text-center">
+        <div class="w-full">
+            <h1 class="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight">
+                Now Everyone Can Fly,<br>
+                <span class="text-aa-red">Virtually.</span>
+            </h1>
 
-    <div class="w-full">
-        <h1 class="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight">
-            Now Everyone Can Fly,<br>
-            <span class="text-aa-red">Virtually.</span>
-        </h1>
-
-        <p class="text-lg md:text-2xl mb-10 max-w-2xl mx-auto font-light opacity-90">
-            The official AirAsia Virtual Airline on GeoFS.
-            Low-cost. High standards. Serious flying.
-        </p>
+            <p class="text-lg md:text-2xl mb-10 max-w-2xl mx-auto font-light opacity-90">
+                The official AirAsia Virtual Airline on GeoFS.
+                Low-cost. High standards. Serious flying.
+            </p>
+        </div>
     </div>
-
-</div>
 
     <!-- Decorative Plane Icon -->
     <div class="absolute -bottom-16 -right-16 opacity-10 text-white transform -rotate-12 pointer-events-none">
         <i class="fa-solid fa-plane-departure text-[320px]"></i>
     </div>
 
-    <!-- Gradient Fade -->
+    <!-- Bottom Fade -->
     <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black to-transparent"></div>
 </section>
 
@@ -660,6 +661,7 @@
 </body>
 
 </html>
+
 
 
 
