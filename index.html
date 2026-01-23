@@ -656,9 +656,32 @@
             }
         });
     </script>
+    <script>
+const toggleBtn = document.getElementById("themeToggle");
+
+// Load saved theme
+if (localStorage.theme === "dark") {
+  document.documentElement.classList.add("dark");
+  toggleBtn.textContent = "☀️";
+}
+
+toggleBtn.addEventListener("click", () => {
+  document.documentElement.classList.toggle("dark");
+
+  if (document.documentElement.classList.contains("dark")) {
+    localStorage.theme = "dark";
+    toggleBtn.textContent = "☀️";
+  } else {
+    localStorage.theme = "light";
+    toggleBtn.textContent = "🌙";
+  }
+});
+</script>
+
 </body>
 
 </html>
+
 
 
 
