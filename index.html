@@ -536,56 +536,43 @@ style="
         </iframe>
     </div>
 </section>
-      
-<section id="bookings" class="page-section hidden-page pt-32 pb-24 bg-gray-50 min-h-screen">
-  <div class="max-w-3xl mx-auto px-4">
+      <section id="bookings" class="page-section pt-32 pb-20 bg-gray-100 min-h-screen">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-aa-red text-center mb-6">Book a Flight</h2>
 
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">
-      Flight Preferences
-    </h2>
+    <iframe
+      id="bookingForm"
+      src="https://forms.gle/BmZiaHHAqh1pSBR37"
+      width="100%"
+      height="1100"
+      frameborder="0"
+      onload="showExtras()">
+    </iframe>
 
-    <form id="bookingExtras" class="bg-white p-10 rounded-2xl shadow-lg space-y-8">
+    <!-- Hidden extras -->
+    <div id="extras" class="hidden mt-12 bg-white p-8 rounded-2xl shadow-lg">
+      <h3 class="text-2xl font-bold mb-6 text-center">Customize Your Booking</h3>
 
-      <!-- Seat Selection -->
-      <div>
-        <label class="block text-lg font-semibold mb-3">Seat Preference</label>
-        <select id="seat" class="w-full border rounded-xl p-4 text-lg">
-          <option value="Window">Window</option>
-          <option value="Aisle">Aisle</option>
-          <option value="Middle">Middle</option>
-          <option value="Exit Row">Exit Row</option>
-        </select>
-      </div>
+      <label class="block font-semibold mb-2">Seat Preference</label>
+      <select class="w-full mb-4 p-3 border rounded-lg">
+        <option>Window</option>
+        <option>Aisle</option>
+        <option>Middle</option>
+      </select>
 
-      <!-- Meal Selection -->
-      <div>
-        <label class="block text-lg font-semibold mb-3">Meal Preference</label>
-        <select id="meal" class="w-full border rounded-xl p-4 text-lg">
-          <option value="Vegetarian">Vegetarian</option>
-          <option value="Non-Vegetarian">Non-Vegetarian</option>
-          <option value="Vegan">Vegan</option>
-          <option value="Jain">Jain</option>
-          <option value="Muslim (Halal)">Muslim (Halal)</option>
-        </select>
-      </div>
-
-      <button type="submit"
-        class="w-full bg-aa-red hover:bg-red-700 text-white py-4 rounded-xl font-bold text-lg transition">
-        Save Preferences
-      </button>
-
-      <p id="bookingSuccess"
-         class="hidden text-center text-green-600 font-semibold text-lg">
-        Preferences saved successfully ✈️
-      </p>
-
-    </form>
-
+      <label class="block font-semibold mb-2">Meal Preference</label>
+      <select class="w-full p-3 border rounded-lg">
+        <option>Vegetarian</option>
+        <option>Non-Vegetarian</option>
+        <option>Vegan</option>
+        <option>Jain</option>
+        <option>Muslim (Halal)</option>
+      </select>
+    </div>
   </div>
 </section>
 
-
-
+      
     </main>
 
     <!-- Footer (Global) -->
@@ -705,7 +692,16 @@ style="
             }
         });
     </script>
+  <script>
+function showExtras() {
+  setTimeout(() => {
+    document.getElementById("extras").classList.remove("hidden");
+  }, 1500);
+}
+</script>
+
     
 </body>
 
 </html>
+
