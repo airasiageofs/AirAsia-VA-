@@ -140,32 +140,42 @@
     <main class="flex-grow">
         
         <!-- PAGE: HOME -->
-        <div class="absolute inset-0 bg-black/60"></div>
-
-<section id="home"
-  class="page-section pt-32 pb-24 md:pt-48 md:pb-32 px-4 relative overflow-hidden min-h-screen bg-cover bg-center"
+       <section id="home"
+  class="page-section relative min-h-screen overflow-hidden bg-cover bg-center pt-32 pb-24 md:pt-48 md:pb-32 px-4"
   style="background-image: url('https://raw.githubusercontent.com/airasia-virtual-airlines/AirAsia-Virtual-Airlines/main/images/airasia.png');">
 
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/65"></div>
 
-            <div class="max-w-7xl mx-auto relative z-10 text-center text-white">
-                <h1 class="text-4xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
-                    Now Everyone Can Fly... <br/><span class="text-white opacity-90 italic">Virtually.</span>
-                </h1>
-                <p class="text-lg md:text-2xl mb-10 max-w-2xl mx-auto font-light opacity-90">
-                    Welcome to the premier Low-Cost Carrier on GeoFS. Building the sharpest crew in the browser skies.
-                </p>
-                    </a>
-                    <a href="https://discord.gg/KJBQ4NNM5" target="_blank" class="bg-[#5865F2] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#4752c4] transition shadow-xl flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-discord"></i> Join Discord
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Decorative Elements -->
-            <div class="absolute -bottom-10 -right-10 opacity-10 text-white transform -rotate-12">
-                <i class="fa-solid fa-plane-departure text-[300px]"></i>
-            </div>
-        </section>
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto relative z-10 text-center text-white">
+        <h1 class="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight">
+            Now Everyone Can Fly,<br>
+            <span class="text-aa-red">Virtually.</span>
+        </h1>
+
+        <p class="text-lg md:text-2xl mb-10 max-w-2xl mx-auto font-light opacity-90">
+            The official AirAsia Virtual Airline on GeoFS.<br class="hidden md:block">
+            Low-cost. High standards. Serious flying.
+        </p>
+
+        <!-- CTA Buttons -->
+            <a href="https://discord.gg/KJBQ4NNM5"
+               target="_blank"
+               class="bg-[#5865F2] text-white px-6 py-3 rounded-full font-semibold text-base hover:bg-[#4752c4] transition shadow-lg flex items-center gap-2">
+                <i class="fa-brands fa-discord"></i> Join Discord
+            </a>
+        </div>
+    </div>
+
+    <!-- Decorative Plane Icon -->
+    <div class="absolute -bottom-16 -right-16 opacity-10 text-white transform -rotate-12 pointer-events-none">
+        <i class="fa-solid fa-plane-departure text-[320px]"></i>
+    </div>
+
+    <!-- Gradient Fade -->
+    <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black to-transparent"></div>
+</section>
 
         <!-- PAGE: ABOUT -->
         <section id="about" class="page-section hidden-page pt-32 pb-20 bg-white min-h-screen">
@@ -644,6 +654,7 @@
 </body>
 
 </html>
+
 
 
 
