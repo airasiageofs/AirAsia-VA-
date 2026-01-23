@@ -120,6 +120,22 @@
    <i class="fa-brands fa-discord"></i>
    Discord
 </a>
+                  <!-- Dark Mode Toggle -->
+<div class="flex items-center gap-2">
+    <span class="text-sm text-gray-600 dark:text-gray-300">🌙</span>
+
+    <label class="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" id="darkToggle" class="sr-only">
+        <div class="w-11 h-6 bg-gray-300 rounded-full peer 
+                    peer-checked:bg-aa-red 
+                    after:content-[''] after:absolute after:top-0.5 after:left-[2px]
+                    after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all
+                    peer-checked:after:translate-x-full"></div>
+    </label>
+
+    <span class="text-sm text-gray-600 dark:text-gray-300">☀️</span>
+</div>
+
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -666,11 +682,34 @@ function showExtras() {
   }, 1500);
 }
 </script>
+  <script>
+const toggle = document.getElementById("darkToggle");
+const html = document.documentElement;
+
+// Load saved mode
+if (localStorage.theme === "dark") {
+    html.classList.add("dark");
+    toggle.checked = true;
+}
+
+// Toggle mode
+toggle.addEventListener("change", () => {
+    if (toggle.checked) {
+        html.classList.add("dark");
+        localStorage.theme = "dark";
+    } else {
+        html.classList.remove("dark");
+        localStorage.theme = "light";
+    }
+});
+</script>
+
 
     
 </body>
 
 </html>
+
 
 
 
