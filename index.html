@@ -105,9 +105,14 @@
                     <a href="#news" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">News</a>
                     <a href="#fleet" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">Fleet</a>
                     <a href="#routes" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">Routes</a>
-                    <a href="#apply" class="nav-link bg-aa-red text-white px-6 py-2 rounded-full font-bold hover:bg-red-700 transition shadow-lg transform hover:scale-105">
-                        Join Crew
-                    </a>
+                    <a href="#pilot-form" class="nav-link bg-aa-red text-white px-6 py-2 rounded-full font-bold hover:bg-red-700 transition shadow-lg transform hover:scale-105">
+    Pilot Application
+</a>
+
+<a href="#tickets" class="nav-link text-gray-700 hover:text-aa-red font-medium transition">
+    Bookings
+</a>
+
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -473,50 +478,48 @@
             </div>
         </section>
 
-        <!-- PAGE: APPLY -->
-        <section id="apply" class="page-section hidden-page pt-32 pb-20 bg-aa-red text-white min-h-screen">
-            <div class="max-w-3xl mx-auto px-4">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold mb-4">Join the Team</h2>
-                    <p class="opacity-90">Ready to take off? Fill out the application below.</p>
-                </div>
+        
+       <!-- PAGE: PILOT APPLICATION -->
+<section id="pilot-form" class="page-section hidden-page pt-32 pb-20 bg-gray-100 min-h-screen">
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-aa-red mb-2">Pilot Application</h2>
+            <p class="text-gray-600">Apply to become an AirAsia GeoFS pilot</p>
+        </div>
 
-                <form class="bg-white rounded-2xl p-8 shadow-2xl text-gray-800 space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-bold mb-2">Callsign (e.g. AXM123)</label>
-                            <input type="text" placeholder="Desired Callsign" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red focus:ring-1 focus:ring-aa-red transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold mb-2">GeoFS Username</label>
-                            <input type="text" placeholder="Your GeoFS Name" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red focus:ring-1 focus:ring-aa-red transition">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Experience Level</label>
-                        <select class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red transition">
-                            <option>Student Pilot (New to GeoFS)</option>
-                            <option>First Officer (Some Experience)</option>
-                            <option>Captain (Veteran)</option>
-                        </select>
-                    </div>
+        <iframe 
+            src="https://docs.google.com/forms/d/e/w4xi6PyatmrWNHJK8/viewform?embedded=true"
+            width="100%" 
+            height="1200" 
+            frameborder="0" 
+            marginheight="0" 
+            marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+</section>
 
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Why do you want to join?</label>
-                        <textarea rows="4" placeholder="Tell us a bit about yourself..." class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aa-red focus:ring-1 focus:ring-aa-red transition"></textarea>
-                    </div>
+        <!-- PAGE: BOOKING TICKETS -->
+<section id="tickets" class="page-section hidden-page pt-32 pb-20 bg-gray-100 min-h-screen">
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-aa-red mb-2">Flight Booking</h2>
+            <p class="text-gray-600">Request a virtual flight booking</p>
+        </div>
 
-                    <button type="button" class="w-full bg-aa-dark text-white font-bold py-4 rounded-lg hover:bg-black transition transform hover:-translate-y-1 shadow-lg">
-                        Submit Application
-                    </button>
-                    
-                    <p class="text-xs text-center text-gray-400">
-                        By submitting, you agree to our Virtual Airline rules. This is for a flight simulator game, not real employment.
-                    </p>
-                </form>
-            </div>
-        </section>
+        <iframe 
+            src="https://docs.google.com/forms/d/e/BmZiaHHAqh1pSBR37/viewform?embedded=true"
+            width="100%" 
+            height="1200" 
+            frameborder="0" 
+            marginheight="0" 
+            marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+</section>
+
+
     </main>
 
     <!-- Footer (Global) -->
@@ -637,4 +640,5 @@
         });
     </script>
 </body>
+
 </html>
