@@ -122,16 +122,11 @@
    <i class="fa-brands fa-discord"></i>
    Discord
 </a>
-<button id="loginBtn"
-  class="flex items-center gap-3 px-4 py-2 bg-white text-black rounded-lg shadow hover:bg-gray-100 transition">
-  
-  <img
-    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-    alt="Google"
-    class="w-5 h-5"
-  />
-  <span>Sign in with Google</span>
+<button onclick="googleSignIn()"
+  class="px-6 py-3 bg-red-600 text-white rounded-lg font-bold">
+  Sign in with Google
 </button>
+
 
 <span id="userBox" class="ml-4 text-sm font-medium text-white"></span>
 
@@ -710,66 +705,7 @@ style="
       alert(error.message);
     }
   };
-</script>
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } 
-    from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
-
-  // ✅ YOUR Firebase config (already verified)
-  const firebaseConfig = {
-    apiKey: "AIzaSyCot7QaitMumVyjoTNzRcYHWbAeBA4SjQs",
-    authDomain: "sign-in-28323.firebaseapp.com",
-    projectId: "sign-in-28323",
-    appId: "1:94732970776:web:9a94e6b73235afcecd4c6d"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  const loginBtn = document.getElementById("loginBtn");
-  const userBox = document.getElementById("userBox");
-
-  loginBtn.addEventListener("click", async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      userBox.textContent = `Hi, ${user.displayName}`;
-      loginBtn.style.display = "none";
-    } catch (error) {
-      console.error(error);
-      alert("Login failed: " + error.message);
-    }
-  });
-</script>
-
-
-
-
-    
+</script>    
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
