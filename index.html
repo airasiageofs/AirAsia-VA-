@@ -711,6 +711,40 @@ style="
     }
   };
 </script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } 
+    from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+
+  // ✅ YOUR Firebase config (already verified)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCot7QaitMumVyjoTNzRcYHWbAeBA4SjQs",
+    authDomain: "sign-in-28323.firebaseapp.com",
+    projectId: "sign-in-28323",
+    appId: "1:94732970776:web:9a94e6b73235afcecd4c6d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const loginBtn = document.getElementById("loginBtn");
+  const userBox = document.getElementById("userBox");
+
+  loginBtn.addEventListener("click", async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      userBox.textContent = `Hi, ${user.displayName}`;
+      loginBtn.style.display = "none";
+    } catch (error) {
+      console.error(error);
+      alert("Login failed: " + error.message);
+    }
+  });
+</script>
+
 
 
 
@@ -718,6 +752,7 @@ style="
 </body>
 
 </html>
+
 
 
 
