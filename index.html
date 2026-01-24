@@ -1,10 +1,10 @@
 <<!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type="module">
+ <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } 
-  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } 
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
@@ -17,30 +17,19 @@
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  window.loginWithGoogle = async () => {
-    await signInWithPopup(auth, provider);
-  };
-
-  window.logout = async () => {
-    await signOut(auth);
-  };
-
-  onAuthStateChanged(auth, (user) => {
-    const loginBtn = document.getElementById("loginBtn");
-    const userBox = document.getElementById("userBox");
-
-    if (user) {
-      loginBtn.classList.add("hidden");
-      userBox.innerHTML = `
-        <span class="font-medium">${user.displayName}</span>
-        <button onclick="logout()" class="ml-3 text-sm text-red-500">Logout</button>
-      `;
-    } else {
-      loginBtn.classList.remove("hidden");
-      userBox.innerHTML = "";
-    }
+  document.getElementById("googleSignIn").addEventListener("click", () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log("Signed in:", result.user.displayName);
+        alert("Welcome " + result.user.displayName);
+      })
+      .catch((error) => {
+        console.error(error.code, error.message);
+        alert(error.message);
+      });
   });
 </script>
+
 
   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -715,6 +704,7 @@ style="
 </body>
 
 </html>
+
 
 
 
