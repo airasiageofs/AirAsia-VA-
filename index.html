@@ -122,10 +122,18 @@
    <i class="fa-brands fa-discord"></i>
    Discord
 </a>
-<button onclick="googleSignIn()"
-  class="px-2 py-1 bg-blue-600 text-gold rounded-lg font-bold">
-  Sign in 
+<button id="loginBtn"
+  class="flex items-center gap-3 px-4 py-2 bg-white text-black rounded-lg shadow hover:bg-gray-100 transition">
+  
+  <img
+    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+    alt="Google"
+    class="w-5 h-5"
+  />
+  <span>Sign in with Google</span>
 </button>
+
+<span id="userBox" class="ml-4 text-sm font-medium text-white"></span>
 
 
 <div id="userBox" class="ml-4 text-white font-semibold"></div>
@@ -710,6 +718,7 @@ style="
 </body>
 
 </html>
+
 
 
 
