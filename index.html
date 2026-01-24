@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -122,11 +122,11 @@
    <i class="fa-brands fa-discord"></i>
    Discord
 </a>
-                 <button id="loginBtn"
-  class="flex items-center gap-2 bg-white text-gray-800 px-2 py-1 rounded-full font-semibold shadow hover:scale-105 transition">
-  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5">
-  Sign in
+<button onclick="googleSignIn()"
+  class="px-2 py-1 bg-red-600 text-white rounded-lg font-bold">
+  Sign in with Google
 </button>
+
 
 <div id="userBox" class="ml-4 text-white font-semibold"></div>
 
@@ -671,42 +671,46 @@ style="
         });
 
 </script>
- <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+ 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup } 
-    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
   const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyCot7QaitMumVyjoTNzRcYHWbAeBA4SjQs",
+    authDomain: "sign-in-28323.firebaseapp.com",
+    projectId: "sign-in-28323",
+    storageBucket: "sign-in-28323.firebasestorage.app",
+    messagingSenderId: "94732970776",
+    appId: "1:94732970776:web:9a94e6b73235afcecd4c6d"
   };
 
+  // Init Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  const loginBtn = document.getElementById("loginBtn");
-  const userBox = document.getElementById("userBox");
-
-  loginBtn.addEventListener("click", async () => {
+  // Expose function to button
+  window.googleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      userBox.textContent = `Welcome, ${result.user.displayName}`;
-      loginBtn.style.display = "none";
-    } catch (err) {
-      console.error(err);
-      alert(err.message);
+      const user = result.user;
+      alert("Signed in as " + user.displayName);
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
     }
-  });
+  };
 </script>
+
 
 
     
 </body>
 
 </html>
+
 
 
 
