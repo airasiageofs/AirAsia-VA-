@@ -126,6 +126,14 @@
   class="px-2 py-1 bg-blue-600 text-black rounded-lg font-italic">
   Sign in 
 </button>
+                  <!-- USER PROFILE PHOTO -->
+<img
+  id="profilePhoto"
+  src=""
+  alt="Profile"
+  class="hidden w-9 h-9 rounded-full border-2 border-gray-300 cursor-pointer"
+/>
+
 
 
 <span id="userBox" class="ml-4 text-sm font-medium text-white"></span>
@@ -705,8 +713,21 @@ style="
       alert(error.message);
     }
   };
+  const profilePhoto = document.getElementById("profilePhoto");
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    profilePhoto.src = user.photoURL;
+    profilePhoto.classList.remove("hidden");
+  } else {
+    profilePhoto.classList.add("hidden");
+    profilePhoto.src = "";
+  }
+});
+
 </script>    
 </body>
 
 </html>
+
 
